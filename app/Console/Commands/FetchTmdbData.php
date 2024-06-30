@@ -3,16 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Enums\LanguageType;
-use App\Enums\PopularType;
 use App\Enums\TmdbDataType;
 use App\Models\Language;
-use App\Models\MovieGenre;
-use App\Models\Serie;
-use App\Models\SerieGenre;
 use App\Services\TmdbService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Lang;
 
 class FetchTmdbData extends Command
 {

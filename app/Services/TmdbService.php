@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Enums\PopularType;
 use App\Enums\TmdbDataType;
 use App\Models\Language;
 use App\Models\Movie;
