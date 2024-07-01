@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Language;
 use App\Models\MovieGenre;
 use Illuminate\Http\JsonResponse;
 
@@ -11,13 +10,10 @@ class MovieGenreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(string $lang): JsonResponse
+    public function index(string $languageCode): JsonResponse
     {
-        $languageId = Language::where('code', $lang)->first()->id;
-        $movieGenres = MovieGenre::with(['translations' => function ($query) use ($languageId) {
-            $query->where('language_id', $languageId);
-        }])->get();
+        $movieGenres = MovieGenre::withTranslations($languageCode)->get();
 
-        return response()->json([$movieGenres]);
+        return response()->json($movieGenres);
     }
 }

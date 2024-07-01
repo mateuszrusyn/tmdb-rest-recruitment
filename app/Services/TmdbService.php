@@ -91,10 +91,10 @@ class TmdbService
             $createdMovie = Movie::updateOrCreate([
                 'tmdb_id' => $movie['id'],
             ],
-            [
-                'release_date' => $movie['release_date'],
-                'vote_average' => $movie['vote_average'],
-            ]);
+                [
+                    'release_date' => $movie['release_date'],
+                    'vote_average' => $movie['vote_average'],
+                ]);
             $genresIds = MovieGenre::whereIn('tmdb_id', array_values($movie['genre_ids']))->pluck('id')->toArray();
             $createdMovie->genres()->sync($genresIds);
 
@@ -113,10 +113,10 @@ class TmdbService
             $createdSerie = Serie::updateOrCreate([
                 'tmdb_id' => $serie['id'],
             ],
-            [
-                'first_air_date' => $serie['first_air_date'],
-                'vote_average' => $serie['vote_average'],
-            ]);
+                [
+                    'first_air_date' => $serie['first_air_date'],
+                    'vote_average' => $serie['vote_average'],
+                ]);
             $genresIds = SerieGenre::whereIn('tmdb_id', array_values($serie['genre_ids']))->pluck('id')->toArray();
             $createdSerie->genres()->sync($genresIds);
 

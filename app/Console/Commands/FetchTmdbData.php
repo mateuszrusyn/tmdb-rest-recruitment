@@ -22,7 +22,7 @@ class FetchTmdbData extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Fetch Movies, Series, Genres data from TMDB API';
 
     private TmdbService $tmdbService;
 
@@ -38,10 +38,18 @@ class FetchTmdbData extends Command
         $languages = Language::all();
 
         foreach ($languages as $language) {
+            $this->newLine();
+            $this->info("<options=bold;fg=blue>Fetching data from TMDB for language: {$language->code}</>");
+
             $series = $this->fetchSeries($language);
             $movies = $this->fetchMovies($language);
             $seriesGenres = $this->fetchSeriesGenres($language);
             $moviesGenres = $this->fetchMoviesGenres($language);
+
+            $this->info("Fetched: " . count($movies) . ' movies');
+            $this->info("Fetched: " . count($series) . ' series');
+            $this->info("Fetched: " . count($seriesGenres) . ' serie genres');
+            $this->info("Fetched: " . count($moviesGenres) . ' movie genres');
 
             $this->tmdbService->storeMovieGenres($moviesGenres, $language);
             $this->tmdbService->storeMovies($movies, $language);
@@ -52,12 +60,12 @@ class FetchTmdbData extends Command
 
     private function fetchSeries(Language $language): array
     {
-        return $this->tmdbService->getPopular(TmdbDataType::SERIE, $language, $this->limit,);
+        return $this->tmdbService->getPopular(TmdbDataType::SERIE, $language, $this->limit);
     }
 
     private function fetchMovies(Language $language): array
     {
-        return $this->tmdbService->getPopular(TmdbDataType::MOVIE, $language, $this->limit,);
+        return $this->tmdbService->getPopular(TmdbDataType::MOVIE, $language, $this->limit);
     }
 
     private function fetchMoviesGenres(Language $language): array

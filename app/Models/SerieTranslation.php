@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SerieTranslation extends Model
 {
@@ -11,12 +12,12 @@ class SerieTranslation extends Model
 
     protected $fillable = ['serie_id', 'language_id', 'name', 'overview'];
 
-    public function serie()
+    public function serie(): BelongsTo
     {
         return $this->belongsTo(Serie::class);
     }
 
-    public function language()
+    public function language(): BelongsTo
     {
         return $this->belongsTo(Language::class);
     }
